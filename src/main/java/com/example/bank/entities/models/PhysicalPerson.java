@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serial;
@@ -31,7 +33,7 @@ public class PhysicalPerson implements Serializable {
     private String rg;
     private Date birthDate;
     @NotBlank
-    @Size(min = 6, max = 24)
+    @Size(min = 6)
     private String password;
 
 }

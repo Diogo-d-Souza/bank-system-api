@@ -3,6 +3,7 @@ package com.example.bank.entities.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -28,7 +29,9 @@ public class PhysicalPerson implements Serializable {
     private String cpf;
     @NotBlank
     private String rg;
-    @NotBlank
     private Date birthDate;
+    @NotBlank
+    @Size(min = 6, max = 24)
+    private String password;
 
 }

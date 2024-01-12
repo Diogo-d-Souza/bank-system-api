@@ -1,5 +1,6 @@
 package com.example.bank.entities.DTO;
 
+import com.example.bank.entities.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -20,4 +21,6 @@ public class PhysicalPersonDTO {
     @NotBlank
     private String rg;
     private Date birthDate;
+    @NotBlank
+    private UserRole role;
 }

@@ -49,7 +49,6 @@ public class PhysicalPerson implements Serializable, UserDetails {
     @NotBlank
     @Size(min = 6)
     private String password;
-    @NotBlank
     private UserRole role;
 
     @Override

@@ -2,6 +2,8 @@ package com.example.bank.controllers;
 
 import com.example.bank.entities.DTO.LoginResponseDTO;
 import com.example.bank.entities.DTO.PhysicalPersonAuthenticationDTO;
+import com.example.bank.entities.models.PhysicalPerson;
+import com.example.bank.services.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +19,15 @@ import javax.net.ssl.SSLEngineResult;
 @Controller
 @RequestMapping("login")
 public class AuthController {
-
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
     @PostMapping(value = "/physical-person")
     public ResponseEntity<LoginResponseDTO> physicalLogin(@RequestBody @Valid PhysicalPersonAuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.cpf(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((PhysicalPerson) auth.getPrincipal());
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 }

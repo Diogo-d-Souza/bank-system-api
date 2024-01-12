@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/physical-person")
 public class PhysicalPersonController {
@@ -21,11 +23,17 @@ public class PhysicalPersonController {
     @Autowired
     private PasswordEncoder encoder;
 
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<PhysicalPersonDTO>> getAll() {
+        var allCostumers = physicalPersonService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(allCostumers);
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<PhysicalPersonDTO> create(@RequestBody @Valid PhysicalPerson physicalPerson) {
         physicalPerson.setPassword(encoder.encode(physicalPerson.getPassword()));
-        System.out.println(physicalPerson.getPassword());
         var createdCustomer = physicalPersonService.create(physicalPerson);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
     }
+
 }

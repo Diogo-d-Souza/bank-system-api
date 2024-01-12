@@ -8,6 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PhysicalPersonServiceImpl implements PhysicalPersonService {
 
@@ -21,5 +24,15 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
     public PhysicalPersonDTO create(PhysicalPerson physicalPerson) {
         PhysicalPerson createdPhysicalPerson = physicalPersonRepository.save(physicalPerson);
         return modelMapper.map(createdPhysicalPerson, PhysicalPersonDTO.class);
+    }
+
+    @Override
+    public List<PhysicalPersonDTO> getAll() {
+        List<PhysicalPerson> allCostumers = physicalPersonRepository.findAll();
+        List<PhysicalPersonDTO> allCostumersDTO = new ArrayList<PhysicalPersonDTO>();
+        for(PhysicalPerson costumer: allCostumers) {
+            allCostumersDTO.add(modelMapper.map(costumer, PhysicalPersonDTO.class));
+        }
+        return allCostumersDTO;
     }
 }

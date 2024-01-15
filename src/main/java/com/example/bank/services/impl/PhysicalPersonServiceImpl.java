@@ -1,5 +1,6 @@
 package com.example.bank.services.impl;
 
+import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
 import com.example.bank.entities.models.PhysicalPerson;
 import com.example.bank.repository.PhysicalPersonRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PhysicalPersonServiceImpl implements PhysicalPersonService {
@@ -34,5 +37,16 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
             allCostumersDTO.add(modelMapper.map(costumer, PhysicalPersonDTO.class));
         }
         return allCostumersDTO;
+    }
+
+    @Override
+    public void edit(EditPhysicalPersonDTO editedPerson, UUID id) {
+        Optional<PhysicalPerson> person = physicalPersonRepository.findById(id);
+        if(person.isPresent()) {
+            PhysicalPerson personToBeEdited = person.get();
+            personToBeEdited.setName(editedPerson.name());
+            personToBeEdited.setEmail(editedPerson.email());
+            physicalPersonRepository.save(personToBeEdited);
+        }
     }
 }

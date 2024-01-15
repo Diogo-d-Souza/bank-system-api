@@ -7,11 +7,13 @@ import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PhysicalPersonDTO {
+    private UUID id;
     @NotBlank
     private String name;
     @Email

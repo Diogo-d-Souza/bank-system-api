@@ -49,4 +49,13 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
             physicalPersonRepository.save(personToBeEdited);
         }
     }
+
+    @Override
+    public void delete(UUID id) {
+        Optional<PhysicalPerson> person = physicalPersonRepository.findById(id);
+        if(person.isPresent()) {
+            PhysicalPerson personToBeDeleted = person.get();
+            physicalPersonRepository.delete(personToBeDeleted);
+        }
+    }
 }

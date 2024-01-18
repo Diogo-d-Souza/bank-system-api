@@ -40,4 +40,10 @@ public class PhysicalPersonController {
         physicalPersonService.edit(editPhysicalPersonDTO, id);
         return ResponseEntity.ok().build();
     }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        physicalPersonService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -15,4 +15,6 @@ public interface PhysicalPersonService {
 
     public void edit(EditPhysicalPersonDTO editedPerson, UUID id);
 
+    public void delete(UUID id);
+
 }

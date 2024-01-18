@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +22,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_physical_person")
 public class PhysicalPerson implements Serializable, UserDetails {
@@ -47,6 +52,7 @@ public class PhysicalPerson implements Serializable, UserDetails {
     @Size(min = 6)
     private String password;
     private UserRole role;
+    private UUID accountId;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

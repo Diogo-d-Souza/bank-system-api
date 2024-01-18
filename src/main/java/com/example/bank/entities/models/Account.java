@@ -1,15 +1,19 @@
 package com.example.bank.entities.models;
 
-import com.example.bank.entities.enums.AccountType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_account")
 public class Account implements Serializable {
@@ -19,12 +23,11 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @NotBlank
-    private String branch;
+    private String agency = "0001";
+    private String accountNumber = "3776232-13";
     @NotBlank
-    private String accountNumber;
-    @NotBlank
-    private String paymentInstitution;
-    @NotBlank
-    private AccountType accountType;
-
+    private String paymentInstitution = "Didas Payment";
+    @NotNull
+    private Double balance = 0.0;
+    private UUID physicalPersonId;
 }

@@ -2,8 +2,10 @@ package com.example.bank.services.impl;
 
 import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
+import com.example.bank.entities.models.Account;
 import com.example.bank.entities.models.PhysicalPerson;
 import com.example.bank.repository.PhysicalPersonRepository;
+import com.example.bank.services.AccountService;
 import com.example.bank.services.PhysicalPersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,20 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
     private PhysicalPersonRepository physicalPersonRepository;
 
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
     public PhysicalPersonDTO create(PhysicalPerson physicalPerson) {
+        Account account = new Account();
+        account.setPhysicalPersonId(physicalPerson.getId());
+        accountService.create(account);
+        physicalPerson.setAccountId(account.getId());
         PhysicalPerson createdPhysicalPerson = physicalPersonRepository.save(physicalPerson);
+        account.setPhysicalPersonId(createdPhysicalPerson.getId());
+        accountService.create(account);
         return modelMapper.map(createdPhysicalPerson, PhysicalPersonDTO.class);
     }
 

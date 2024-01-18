@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PhysicalPersonDTO {
     private UUID id;
     @NotBlank
@@ -25,4 +23,5 @@ public class PhysicalPersonDTO {
     private Date birthDate;
     @NotBlank
     private UserRole role;
+    private UUID accountID;
 }

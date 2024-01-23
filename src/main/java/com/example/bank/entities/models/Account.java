@@ -34,4 +34,7 @@ public class Account implements Serializable {
     public void deposit(Double value) {
         this.balance = this.balance + value;
     }
+    public void withdraw(Double value) {
+        this.balance = this.balance - value;
+    }
 }

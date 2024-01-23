@@ -58,5 +58,9 @@ public class PhysicalPersonController {
     public ResponseEntity<Void> deposit(@PathVariable UUID id, @RequestBody Transactions transactions) {
         physicalPersonService.deposit(id, transactions.value());
         return ResponseEntity.ok().build();
+    }@RequestMapping(value = "/withdraw/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Void> withdraw(@PathVariable UUID id, @RequestBody Transactions transactions) {
+        physicalPersonService.withdraw(id, transactions.value());
+        return ResponseEntity.ok().build();
     }
 }

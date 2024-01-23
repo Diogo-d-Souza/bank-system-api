@@ -28,12 +28,19 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.save(account);
     }
 
-
     @Override
     public void deposit(UUID accountId, Double value) {
         Optional<Account> account = accountRepository.findById(accountId);
         if (account.isPresent()) {
             account.get().deposit(value);
+            accountRepository.save(account.get());
+        }
+    }
+    @Override
+    public void withdraw(UUID accountId, Double value) {
+        Optional<Account> account = accountRepository.findById(accountId);
+        if (account.isPresent()) {
+            account.get().withdraw(value);
             accountRepository.save(account.get());
         }
     }

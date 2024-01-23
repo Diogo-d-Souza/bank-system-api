@@ -7,4 +7,5 @@ import java.util.UUID;
 public interface AccountService {
     public Account create(Account account);
     public void deposit(UUID accountId, Double value);
+    public void withdraw(UUID accountId, Double value);
 }

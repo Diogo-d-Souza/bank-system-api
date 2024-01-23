@@ -20,4 +20,6 @@ public interface PhysicalPersonService {
 
     public void deposit(UUID id, Double value);
 
+    public void withdraw(UUID id, Double value);
+
 }

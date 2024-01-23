@@ -12,9 +12,12 @@ public interface PhysicalPersonService {
     public PhysicalPersonDTO create(PhysicalPerson physicalPerson);
 
     public List<PhysicalPersonDTO> getAll();
+    public PhysicalPersonDTO getOne(UUID id);
 
     public void edit(EditPhysicalPersonDTO editedPerson, UUID id);
 
     public void delete(UUID id);
+
+    public void deposit(UUID id, Double value);
 
 }

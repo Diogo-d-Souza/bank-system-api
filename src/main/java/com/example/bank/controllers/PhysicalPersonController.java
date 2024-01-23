@@ -2,6 +2,7 @@ package com.example.bank.controllers;
 
 import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
+import com.example.bank.entities.DTO.Transactions;
 import com.example.bank.entities.models.PhysicalPerson;
 import com.example.bank.services.PhysicalPersonService;
 import jakarta.validation.Valid;
@@ -28,6 +29,12 @@ public class PhysicalPersonController {
         return ResponseEntity.status(HttpStatus.OK).body(allCostumers);
     }
 
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public ResponseEntity<PhysicalPersonDTO> get(@PathVariable UUID id) {
+        var costumer = physicalPersonService.getOne(id);
+        return ResponseEntity.status(HttpStatus.OK).body(costumer);
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<PhysicalPersonDTO> create(@RequestBody @Valid PhysicalPerson physicalPerson) {
         physicalPerson.setPassword(encoder.encode(physicalPerson.getPassword()));
@@ -44,6 +51,12 @@ public class PhysicalPersonController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         physicalPersonService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/deposit/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Void> deposit(@PathVariable UUID id, @RequestBody Transactions transactions) {
+        physicalPersonService.deposit(id, transactions.value());
         return ResponseEntity.ok().build();
     }
 }

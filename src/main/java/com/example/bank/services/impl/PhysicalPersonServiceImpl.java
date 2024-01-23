@@ -51,6 +51,12 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
     }
 
     @Override
+    public PhysicalPersonDTO getOne(UUID id) {
+        Optional<PhysicalPerson> costumer = physicalPersonRepository.findById(id);
+        return costumer.map(physicalPerson -> modelMapper.map(physicalPerson, PhysicalPersonDTO.class)).orElse(null);
+    }
+
+    @Override
     public void edit(EditPhysicalPersonDTO editedPerson, UUID id) {
         Optional<PhysicalPerson> person = physicalPersonRepository.findById(id);
         if(person.isPresent()) {
@@ -68,5 +74,11 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
             PhysicalPerson personToBeDeleted = person.get();
             physicalPersonRepository.delete(personToBeDeleted);
         }
+    }
+
+    @Override
+    public void deposit(UUID id, Double value) {
+        PhysicalPersonDTO physicalPerson = this.getOne(id);
+        accountService.deposit(physicalPerson.getAccountID(), value);
     }
 }

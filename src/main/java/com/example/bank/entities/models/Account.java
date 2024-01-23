@@ -30,4 +30,8 @@ public class Account implements Serializable {
     @NotNull
     private Double balance = 0.0;
     private UUID physicalPersonId;
+
+    public void deposit(Double value) {
+        this.balance = this.balance + value;
+    }
 }

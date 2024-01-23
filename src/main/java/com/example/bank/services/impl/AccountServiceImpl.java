@@ -27,4 +27,14 @@ public class AccountServiceImpl implements AccountService {
     public Account create(Account account) {
         return accountRepository.save(account);
     }
+
+
+    @Override
+    public void deposit(UUID accountId, Double value) {
+        Optional<Account> account = accountRepository.findById(accountId);
+        if (account.isPresent()) {
+            account.get().deposit(value);
+            accountRepository.save(account.get());
+        }
+    }
 }

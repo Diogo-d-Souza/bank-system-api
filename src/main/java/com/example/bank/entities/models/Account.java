@@ -35,6 +35,12 @@ public class Account implements Serializable {
         this.balance = this.balance + value;
     }
     public void withdraw(Double value) {
-        this.balance = this.balance - value;
+
+        double newBalance = this.balance - value;
+        if (newBalance < 0) {
+            throw new RuntimeException("Balance cannot be negative");
+        } else {
+            this.balance = newBalance;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.bank.services.impl;
 
+import com.example.bank.entities.DTO.AccountDTO;
 import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
 import com.example.bank.entities.models.Account;
@@ -23,11 +24,19 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public Account create(Account account) {
         return accountRepository.save(account);
     }
 
+    @Override
+    public AccountDTO findOne(UUID id) {
+        Optional<Account> account = accountRepository.findById(id);
+        return account.map(value -> modelMapper.map(value, AccountDTO.class)).orElse(null);
+    }
     @Override
     public void deposit(UUID accountId, Double value) {
         Optional<Account> account = accountRepository.findById(accountId);

@@ -4,6 +4,7 @@ import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
 import com.example.bank.entities.models.Account;
 import com.example.bank.entities.models.PhysicalPerson;
+import com.example.bank.exceptions.NotFoundException;
 import com.example.bank.repository.PhysicalPersonRepository;
 import com.example.bank.services.AccountService;
 import com.example.bank.services.PhysicalPersonService;
@@ -53,6 +54,7 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
     @Override
     public PhysicalPersonDTO getOne(UUID id) {
         Optional<PhysicalPerson> costumer = physicalPersonRepository.findById(id);
+        if (!costumer.isPresent()) throw new NotFoundException("Costumer doesn't exist");
         return costumer.map(physicalPerson -> modelMapper.map(physicalPerson, PhysicalPersonDTO.class)).orElse(null);
     }
 

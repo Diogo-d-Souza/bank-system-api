@@ -2,9 +2,11 @@ package com.example.bank.services.impl;
 
 import com.example.bank.entities.DTO.AccountDTO;
 import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
+import com.example.bank.entities.DTO.NewBalanceDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
 import com.example.bank.entities.models.Account;
 import com.example.bank.entities.models.PhysicalPerson;
+import com.example.bank.exceptions.NotFoundException;
 import com.example.bank.repository.AccountRepository;
 import com.example.bank.repository.PhysicalPersonRepository;
 import com.example.bank.services.AccountService;
@@ -38,19 +40,23 @@ public class AccountServiceImpl implements AccountService {
         return account.map(value -> modelMapper.map(value, AccountDTO.class)).orElse(null);
     }
     @Override
-    public void deposit(UUID accountId, Double value) {
+    public NewBalanceDTO deposit(UUID accountId, Double value) {
         Optional<Account> account = accountRepository.findById(accountId);
         if (account.isPresent()) {
             account.get().deposit(value);
             accountRepository.save(account.get());
+            return new NewBalanceDTO(account.get().getBalance());
         }
+        return null;
     }
     @Override
-    public void withdraw(UUID accountId, Double value) {
+    public NewBalanceDTO withdraw(UUID accountId, Double value) {
         Optional<Account> account = accountRepository.findById(accountId);
         if (account.isPresent()) {
             account.get().withdraw(value);
             accountRepository.save(account.get());
+            return new NewBalanceDTO(account.get().getBalance());
         }
+        return null;
     }
 }

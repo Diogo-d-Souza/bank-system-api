@@ -1,6 +1,7 @@
 package com.example.bank.services;
 
 import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
+import com.example.bank.entities.DTO.NewBalanceDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
 import com.example.bank.entities.models.PhysicalPerson;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public interface PhysicalPersonService {
 
     public void delete(UUID id);
 
-    public void deposit(UUID id, Double value);
+    public NewBalanceDTO deposit(UUID id, Double value);
 
-    public void withdraw(UUID id, Double value);
+    public NewBalanceDTO withdraw(UUID id, Double value);
 
 }

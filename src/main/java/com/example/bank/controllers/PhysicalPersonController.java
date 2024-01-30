@@ -1,6 +1,7 @@
 package com.example.bank.controllers;
 
 import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
+import com.example.bank.entities.DTO.NewBalanceDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
 import com.example.bank.entities.DTO.Transactions;
 import com.example.bank.entities.models.PhysicalPerson;
@@ -55,12 +56,12 @@ public class PhysicalPersonController {
     }
 
     @RequestMapping(value = "/deposit/{id}", method = RequestMethod.POST)
-    public ResponseEntity<Void> deposit(@PathVariable UUID id, @RequestBody Transactions transactions) {
-        physicalPersonService.deposit(id, transactions.value());
-        return ResponseEntity.ok().build();
+    public ResponseEntity<NewBalanceDTO> deposit(@PathVariable UUID id, @RequestBody Transactions transactions) {
+        NewBalanceDTO newBalanceDTO = physicalPersonService.deposit(id, transactions.value());
+        return ResponseEntity.ok().body(newBalanceDTO);
     }@RequestMapping(value = "/withdraw/{id}", method = RequestMethod.POST)
-    public ResponseEntity<Void> withdraw(@PathVariable UUID id, @RequestBody Transactions transactions) {
-        physicalPersonService.withdraw(id, transactions.value());
-        return ResponseEntity.ok().build();
+    public ResponseEntity<NewBalanceDTO> withdraw(@PathVariable UUID id, @RequestBody Transactions transactions) {
+        NewBalanceDTO newBalanceDTO = physicalPersonService.withdraw(id, transactions.value());
+        return ResponseEntity.ok().body(newBalanceDTO);
     }
 }

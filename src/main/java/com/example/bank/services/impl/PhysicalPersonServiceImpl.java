@@ -1,6 +1,7 @@
 package com.example.bank.services.impl;
 
 import com.example.bank.entities.DTO.EditPhysicalPersonDTO;
+import com.example.bank.entities.DTO.NewBalanceDTO;
 import com.example.bank.entities.DTO.PhysicalPersonDTO;
 import com.example.bank.entities.models.Account;
 import com.example.bank.entities.models.PhysicalPerson;
@@ -83,14 +84,14 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
     }
 
     @Override
-    public void deposit(UUID id, Double value) {
+    public NewBalanceDTO deposit(UUID id, Double value) {
         PhysicalPersonDTO physicalPerson = this.getOne(id);
-        accountService.deposit(physicalPerson.getAccountID(), value);
+        return accountService.deposit(physicalPerson.getAccountID(), value);
     }
 
     @Override
-    public void withdraw(UUID id, Double value) {
+    public NewBalanceDTO withdraw(UUID id, Double value) {
         PhysicalPersonDTO physicalPerson = this.getOne(id);
-        accountService.withdraw(physicalPerson.getAccountID(), value);
+        return accountService.withdraw(physicalPerson.getAccountID(), value);
     }
 }

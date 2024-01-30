@@ -1,5 +1,6 @@
 package com.example.bank.entities.models;
 
+import com.example.bank.exceptions.InsufficientFoundsException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,7 +39,7 @@ public class Account implements Serializable {
 
         double newBalance = this.balance - value;
         if (newBalance < 0) {
-            throw new RuntimeException("Balance cannot be negative");
+            throw new InsufficientFoundsException("Your balance is insufficient");
         } else {
             this.balance = newBalance;
         }

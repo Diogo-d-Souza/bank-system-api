@@ -1,5 +1,6 @@
 package com.example.bank.configurations;
 
+import com.example.bank.exceptions.InsufficientFoundsException;
 import com.example.bank.exceptions.NotFoundException;
 import com.example.bank.exceptions.ResponseErrorMessage;
 import org.springframework.http.HttpStatus;
@@ -15,5 +16,10 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<ResponseErrorMessage> notFoundHandler(NotFoundException exception){
         ResponseErrorMessage errorMessage = new ResponseErrorMessage(exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+    }
+    @ExceptionHandler(InsufficientFoundsException.class)
+    private ResponseEntity<ResponseErrorMessage> insufficientFoundsHandler(InsufficientFoundsException exception){
+        ResponseErrorMessage errorMessage = new ResponseErrorMessage(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorMessage);
     }
 }

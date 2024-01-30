@@ -66,6 +66,8 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
             personToBeEdited.setName(editedPerson.name());
             personToBeEdited.setEmail(editedPerson.email());
             physicalPersonRepository.save(personToBeEdited);
+        } else {
+            throw new NotFoundException("Costumer doesn't exist");
         }
     }
 
@@ -75,6 +77,8 @@ public class PhysicalPersonServiceImpl implements PhysicalPersonService {
         if(person.isPresent()) {
             PhysicalPerson personToBeDeleted = person.get();
             physicalPersonRepository.delete(personToBeDeleted);
+        } else {
+            throw new NotFoundException("Costumer doesn't exist");
         }
     }
 

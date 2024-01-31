@@ -38,17 +38,17 @@ public class PhysicalPerson implements Serializable, UserDetails {
     @NotNull(message = "Email cannot be null")
     @NotBlank(message = "Email cannot be empty")
     @Column(unique = true)
-    @Email
+    @Email(message = "Invalid Email")
     private String email;
     @NotNull(message = "CPF cannot be null")
     @NotBlank(message = "CPF cannot be empty")
     @Column(unique = true)
-    @CPF
+    @CPF(message = "Invalid CPF")
     private String cpf;
     @NotBlank
     private String rg;
     private Date birthDate;
-    @NotBlank
+    @NotBlank(message = "Password cannot be empty")
     @Size(min = 6)
     private String password;
     private UserRole role;

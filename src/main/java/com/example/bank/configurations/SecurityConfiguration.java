@@ -27,10 +27,10 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers(HttpMethod.GET, "/physical-person").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/physical-person/create").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
+
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

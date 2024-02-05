@@ -24,10 +24,22 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("bank-system")
                     .withSubject(physicalPerson.getCpf())
-                    .withExpiresAt(expirationDate())
+                    .withExpiresAt(expirationDate(1))
                     .sign(algorithm);
         } catch (JWTCreationException jwtCreationException) {
             throw new RuntimeException("Error while trying to generate token", jwtCreationException);
+        }
+    }
+    public String generateRefreshToken(PhysicalPerson physicalPerson) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.create()
+                    .withIssuer("bank-system")
+                    .withSubject(physicalPerson.getCpf())
+                    .withExpiresAt(expirationDate(7))
+                    .sign(algorithm);
+        } catch (JWTCreationException jwtCreationException) {
+            throw new RuntimeException("Error while trying to generate refresh token", jwtCreationException);
         }
     }
 
@@ -43,7 +55,7 @@ public class TokenService {
             return "";
         }
     }
-    private Instant expirationDate() {
-        return LocalDateTime.now().plusMinutes(20).toInstant(ZoneOffset.of("-03:00"));
+    private Instant expirationDate(int days) {
+        return LocalDateTime.now().plusMinutes(days).toInstant(ZoneOffset.of("-03:00"));
     }
 }

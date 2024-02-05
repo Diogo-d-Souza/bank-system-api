@@ -45,11 +45,8 @@ public class PhysicalPersonController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<PhysicalPersonDTO> create(@RequestBody @Valid PhysicalPerson physicalPerson) {
         physicalPerson.setPassword(encoder.encode(physicalPerson.getPassword()));
-
         var createdCustomer = physicalPersonService.create(physicalPerson);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCustomer);
-
-
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT)
@@ -89,15 +86,4 @@ public class PhysicalPersonController {
         return errors;
     }
 
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    @ExceptionHandler(DataIntegrityViolationException.class)
-//    public Map<String, String> uniqueExceptionHandler(DataIntegrityViolationException exception) {
-//        Map<String, String> errors = new HashMap<>();
-//        exception.getBindingResult().getAllErrors().forEach((error) -> {
-//            String fieldName = ((FieldError) error).getField();
-//            String errorMessage = error.getDefaultMessage();
-//            errors.put(fieldName, errorMessage);
-//        });
-//        return errors;
-//    }
 }

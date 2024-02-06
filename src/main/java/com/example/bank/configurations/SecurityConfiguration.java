@@ -28,8 +28,16 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "v1/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/physical-person/create").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "v1/physical-person/create").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "v1/account/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "v1/physical-person").authenticated()
+                        .requestMatchers(HttpMethod.GET, "v1/physical-person/{id}").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "v1/physical-person/edit/{id}").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "v1/physical-person/delete/{id}").authenticated()
+                        .requestMatchers(HttpMethod.POST, "v1/physical-person/deposit/{id}").authenticated()
+                        .requestMatchers(HttpMethod.POST, "v1/physical-person/withdraw/{id}").authenticated()
+                        .anyRequest().permitAll()
 
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

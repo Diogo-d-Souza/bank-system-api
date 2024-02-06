@@ -7,6 +7,7 @@ import com.example.bank.entities.DTO.Transactions;
 import com.example.bank.entities.models.PhysicalPerson;
 import com.example.bank.exceptions.NotFoundException;
 import com.example.bank.services.PhysicalPersonService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,7 +24,8 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/physical-person")
+@RequestMapping(value = "v1/physical-person")
+@SecurityRequirement(name = "bearerAuth")
 public class PhysicalPersonController {
     @Autowired
     private PhysicalPersonService physicalPersonService;

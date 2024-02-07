@@ -1,4 +1,6 @@
 package com.example.bank.entities.DTO;
 
-public record EditPhysicalPersonDTO(String email, String name) {
+import jakarta.validation.constraints.Email;
+
+public record EditPhysicalPersonDTO(@Email(message = "Invalid Email") String email, String name) {
 }

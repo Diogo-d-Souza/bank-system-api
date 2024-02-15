@@ -3,10 +3,11 @@ An API REST developed using Java with Spring Boot, with the objective of practic
 
 ## Features
 - Complete CRUD operations for physical persons.
+- Authentication with JWT.
 - Upon creating a physical person, an account will be associated with them.
-- Users can make withdrawals and deposits
+- Users can make withdrawals and deposits.
 - Handling exceptions.
-- Swagger for documentation
+- Swagger for documentation.
 
 ## Run
 - Go inside src > main > resources and change "develop.application.properties" to "application.properties" and fill the fields inside with your PostgreSQL data.
